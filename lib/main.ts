@@ -1,3 +1,3 @@
-export function helloAnything(thing: string): string {
-  return `Hello ${thing}!`;
-}
+// Export components, types and other library elements from this file.
+
+export { Map } from "./components/Map/Map";
