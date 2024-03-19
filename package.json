@@ -14,6 +14,7 @@
   "prepublishOnly": "npm run build",
   "scripts": {
     "dev": "vite",
+    "prepare": "npm run build",
     "build": "tsc --p ./tsconfig-build.json && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
