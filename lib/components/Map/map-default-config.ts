@@ -1,5 +1,13 @@
 import { StyleSpecification } from "maplibre-gl";
 
+export const defaultInitialViewState = {
+    longitude: 17.65431710431244,
+    latitude: 32.954120326746775,
+    zoom: 10,
+    minZoom: 1,
+    maxZoom: 24
+  }
+
 export const defaultMapStyles =  {
   id: "43f36e14-e3f5-43c1-84c0-50a9c80dc5c7",
   name: "MapLibre",
@@ -840,7 +848,16 @@ export const defaultMapStyles =  {
   version: 8 as const,
   metadata: {
     "maptiler:copyright":
-      "This style was generated on MapTiler Cloud. Usage is governed by the license terms in https://github.com/maplibre/demotiles/blob/gh-pages/LICENSE",
+                                             "This style was generated on MapTiler Cloud. Usage is governed by the license terms in https://github.com/maplibre/demotiles/blob/gh-pages/LICENSE",
     "openmaptiles:version": "3.x",
   },
-} satisfies StyleSpecification & { id: string; };
+} satisfies StyleSpecification & { id: string; center: [number, number];};
+
+export const defaultMapConfig = {
+  initialViewState: defaultInitialViewState,
+  style: {
+    width: "100%",
+    height: "100%"
+  },
+  mapStyle: defaultMapStyles
+}

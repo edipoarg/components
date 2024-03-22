@@ -13,7 +13,7 @@ interface BaseProps {
 
 type LineLayerProps = BaseProps & {
   type: "line";
-  style: {
+  paint: {
     "line-color": LinePaintProperty["line-color"];
     "line-opacity": LinePaintProperty["line-opacity"];
     "line-width": LinePaintProperty["line-width"];
@@ -23,7 +23,7 @@ type LineLayerProps = BaseProps & {
 type LayerPaintProperty = NonNullable<FillLayerSpecification["paint"]>;
 type FillLayerProps = BaseProps & {
   type: "fill";
-  style: {
+  paint: {
     "fill-color": LayerPaintProperty["fill-color"];
     "fill-opacity": LayerPaintProperty["fill-opacity"];
     "fill-outline-color": LayerPaintProperty["fill-outline-color"];
@@ -34,16 +34,16 @@ type FillLayerProps = BaseProps & {
 export type MapSourceData = LineLayerProps | FillLayerProps;
 
 
-export function MapSource({ data, type, style, minZoom }: MapSourceData) {
+export function MapSource({ data, type, paint, minZoom=1 }: MapSourceData) {
   return (
     <Source type="geojson" data={data}>
       {
         // Typescript was throwing a nasty error before I created this ternary: `"fill" | "line" is not assignable to type "'symbol'"`.
         // Doesn't make sense to me! I gave TS scopes where the types are clearly "fill" and "line" respectively.
         type === "fill" ? (
-          <Layer type={type} paint={style} minzoom={minZoom} />
+          <Layer type={type} paint={paint} minzoom={minZoom} />
         ) : (
-          <Layer type={type} paint={style} minzoom={minZoom} />
+          <Layer type={type} paint={paint} minzoom={minZoom} />
         )
       }
     </Source>

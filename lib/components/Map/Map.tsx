@@ -1,8 +1,15 @@
+import {Marker} from 'react-map-gl';
 import MapGL from "react-map-gl/maplibre";
 import { NavigationControl } from "react-map-gl/maplibre";
 import maplibregl, { StyleSpecification } from "maplibre-gl";
+import { Source, Layer} from "react-map-gl/maplibre";
 import { MapSource, MapSourceData } from "./MapSource";
-import { defaultMapStyles } from "./map-default-config";
+import { defaultMapConfig, defaultMapStyles } from "./map-default-config";
+
+interface MapStyle {
+    center: [number, number];
+    zoom: number;
+};
 
 interface MapConfig {
   initialViewState: {
@@ -16,10 +23,7 @@ interface MapConfig {
     width: string;
     height: string;
   };
-  mapStyle: {
-    center: [number, number];
-    zoom: number;
-  };
+  mapStyle: MapStyle;
 }
 
 interface Props<T> {
@@ -29,29 +33,38 @@ interface Props<T> {
   markerByPointOfInterest: (poi: T) => JSX.Element;
 }
 
+const voidPOI = (poi: any) => poi && poi.coords && poi.coords.latitude && poi.coords.longitude &&
+  <Marker latitude={Number(poi.coords.latitude)} longitude={Number(poi.coords.longitude)}>
+        "SAPE"
+  </Marker>
+
 export function Map<T>({
-  sources,
-  mapConfig,
-  pointsOfInterest,
-  markerByPointOfInterest,
+  sources = [],
+  mapConfig = defaultMapConfig,
+  pointsOfInterest = [],
+  markerByPointOfInterest = voidPOI,
+  children
 }: Props<T>) {
   const mapGlStyleSpecification: StyleSpecification = {
-    ...mapConfig.mapStyle,
     ...defaultMapStyles,
+    ...mapConfig.mapStyle,
   };
 
   const mapGlProps: React.ComponentProps<typeof MapGL> = {
     mapLib: maplibregl,
+    //mapStyle: mapGlStyleSpecification,
     ...mapConfig,
-    mapStyle: mapGlStyleSpecification,
   };
+
   return (
     <MapGL {...mapGlProps}>
-      {sources.map((source, index) => {
-        <MapSource key={index} {...source} />;
-      })}
-      {pointsOfInterest.map((poi) => markerByPointOfInterest(poi))}
+      {sources.map((source, index) => <MapSource key={index} {...source}/>)}
+      <Marker longitude={mapGlProps.initialViewState.longitude}
+        latitude={mapGlProps.initialViewState.latitude} />
+
       <NavigationControl position="top-right" />
+
+      {children}
     </MapGL>
   );
 }
