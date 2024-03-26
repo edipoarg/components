@@ -52,15 +52,15 @@ export function Map<T>({
 
   const mapGlProps: React.ComponentProps<typeof MapGL> = {
     mapLib: maplibregl,
-    mapStyle: mapGlStyleSpecification,
     ...mapConfig,
+    mapStyle: mapGlStyleSpecification,
   };
 
   return (
     <MapGL {...mapGlProps}>
       {sources.map((source, index) => <MapSource key={index} {...source}/>)}
-      <Marker longitude={mapGlProps.initialViewState.longitude}
-        latitude={mapGlProps.initialViewState.latitude} />
+      <Marker longitude={mapGlProps.initialViewState?.longitude ?? 0}
+        latitude={mapGlProps.initialViewState?.latitude ?? 0} />
       {pointsOfInterest.map((poi) => markerByPointOfInterest(poi))}
       <NavigationControl position="top-right" />
 
