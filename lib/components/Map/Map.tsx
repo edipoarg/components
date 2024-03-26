@@ -2,7 +2,6 @@ import {Marker} from 'react-map-gl';
 import MapGL from "react-map-gl/maplibre";
 import { NavigationControl } from "react-map-gl/maplibre";
 import maplibregl, { StyleSpecification } from "maplibre-gl";
-import { Source, Layer} from "react-map-gl/maplibre";
 import { MapSource, MapSourceData } from "./MapSource";
 import { defaultMapConfig, defaultMapStyles } from "./map-default-config";
 
