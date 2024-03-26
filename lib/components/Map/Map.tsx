@@ -62,9 +62,7 @@ export function Map<T>({
   return (
     <MapGL {...mapGlProps}>
       {sources.map((source, index) => <MapSource key={index} {...source}/>)}
-      <Marker longitude={mapGlProps.initialViewState?.longitude ?? 0}
-        latitude={mapGlProps.initialViewState?.latitude ?? 0} />
-      {pointsOfInterest.map((poi) => markerByPointOfInterest(poi))}
+      {pointsOfInterest.map((poi, i) => markerByPointOfInterest({key: i, ...poi}))}
       <NavigationControl position="top-right" />
 
       {children}
