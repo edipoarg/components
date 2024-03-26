@@ -4,6 +4,7 @@ import { NavigationControl } from "react-map-gl/maplibre";
 import maplibregl, { StyleSpecification } from "maplibre-gl";
 import { MapSource, MapSourceData } from "./MapSource";
 import { defaultMapConfig, defaultMapStyles } from "./map-default-config";
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 interface MapStyle {
     center: [number, number];
