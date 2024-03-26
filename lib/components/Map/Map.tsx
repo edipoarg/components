@@ -30,6 +30,7 @@ interface Props<T> {
   mapConfig: MapConfig;
   pointsOfInterest: T[];
   markerByPointOfInterest: (poi: T) => JSX.Element;
+  children: JSX.Element;
 }
 
 const voidPOI = (poi: any) => poi && poi.coords && poi.coords.latitude && poi.coords.longitude &&
